@@ -27,7 +27,7 @@ def train_and_plot(X_train, y_train, X_test, y_test, title, save_path):
     mae = mean_absolute_error(y_test, y_pred)
     r2 = r2_score(y_test, y_pred)
 
-    # Create scatter plot for actual vs. predicted
+    # Create scatter plot for predicted
     plt.scatter(y_test, y_pred)
     plt.title(f"{title} – MAE: {mae:.2f}, R2: {r2:.2f}")
     plt.xlabel('Actual')
@@ -64,7 +64,7 @@ class RegressionNode(Node):
         msg.data = [float(dataset_id), float(mae), float(r2)]
         self.pub.publish(msg)
 
-    # Process Dataset 1: Height vs. Weight
+    # Process Dataset 1: Height and Weight
     def run_dataset_1(self):
         path = os.path.join(self.package_path, 'data', 'new_height_weight.csv')
         df = pd.read_csv(path)
@@ -75,7 +75,7 @@ class RegressionNode(Node):
         self.get_logger().info(f"Dataset1 – MAE: {mae:.2f}, R2: {r2:.2f}")
         self.publish_metrics(1, mae, r2)
 
-    # Process Dataset 2: Head Size vs. Brain Weight
+    # Process Dataset 2: Head Size and Brain Weight
     def run_dataset_2(self):
         path = os.path.join(self.package_path, 'data', 'HumanBrain_WeightandHead_size.csv')
         df = pd.read_csv(path)
